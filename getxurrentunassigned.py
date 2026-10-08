@@ -38,13 +38,12 @@ def checkalarms():
 
         # Let Xurrent do the filtering: no Member, created before the cutoff
         params = {
-            "fields": "id,subject,team,member,created_at",
+            "fields": "id,subject,requested_by,member,created_at",
             "per_page": 100,
             "member": "",
             "created_at": "<" + cutoff.strftime("%Y-%m-%dT%H:%M:%SZ")
         }
 
-        count = 0
         while url:
             response = requests.get(
                 url,
@@ -59,22 +58,20 @@ def checkalarms():
 
             data = response.json()
 
-            # Count Command Centre requests that nobody has picked up
+            # Beep on the first unassigned request from the requester in config - no need to look further
             for req in data:
-                team = req.get('team') or {}
-                if team.get('name') != config.xurrent_team:
+                requester = req.get('requested_by') or {}
+                if requester.get('name') != config.xurrent_user:
                     continue
                 if req.get('member'):
                     continue
                 print("Unassigned request {} - {}".format(req['id'], req.get('subject', '')))
-                count += 1
+                return 1
 
             # Xurrent returns 100 per page; follow the "next" link for more
             url = response.links.get('next', {}).get('url')
             params = None
 
-        if count != 0:
-            return 1
         return 0
 
     except requests.exceptions.ConnectionError:
