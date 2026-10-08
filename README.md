@@ -16,6 +16,21 @@ This logic pulses the buzzer on and off for 1 second with 0.1s durations, sleeps
 * Run _systemctl start rpiopsgeniealarm.service_
 * Run _systemctl enable rpiopsgeniealarm.service_
   
+## Xurrent Installation
+getxurrentunassigned.py sounds the buzzer when an open Xurrent request for a team (default Command Centre) has had no Member assigned for longer than a configurable number of minutes. It uses the same check/sleep/pulse logic as gettaskcall.py, but pulses at 2Hz instead of 5Hz so it sounds different from the TaskCall alarm.
+* clone the repo
+* Copy getxurrentunassigned.py to /home/pi
+* Copy rpixurrentalarm.service from _local cloned folder_/lib/systemd/system to /etc/systemd/system
+* Add the following to config.py in /home/pi (never commit config.py, it is in .gitignore):
+  * _xurrent_token = 'your Xurrent personal access token'_ (scope: Allow, Request, Read)
+  * _xurrent_account = 'ecentric-support'_
+  * _xurrent_team = 'Command Centre'_
+  * _xurrent_unassigned_minutes = 5_
+* Run _systemctl start rpixurrentalarm.service_
+* Run _systemctl enable rpixurrentalarm.service_
+
+To debug, stop the service using _systemctl stop rpixurrentalarm.service_ and run _python3 getxurrentunassigned.py_ in a terminal and observe the output.
+
 ## Debugging
 Stop the service using _systemctl stop rpiopsgeniealarm.service_ and run _python3 getopsgenie.py_ in a terminal and observe the output
   

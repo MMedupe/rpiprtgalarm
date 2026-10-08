@@ -1,0 +1,11 @@
+[Unit]
+ Description=Xurrent Unassigned Request Alarm Service
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ WorkingDirectory=/home/pi
+ ExecStart=/usr/bin/python3 /home/pi/getxurrentunassigned.py
+
+ [Install]
+ WantedBy=multi-user.target
