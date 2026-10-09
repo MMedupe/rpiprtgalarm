@@ -20,7 +20,7 @@ def makeanoise(pin, seconds):
     try:
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(pin, GPIO.OUT)
-        p = GPIO.PWM(pin, 5)  
+        p = GPIO.PWM(pin, 1)  
         p.start(50)
         time.sleep(seconds)
         p.stop()
