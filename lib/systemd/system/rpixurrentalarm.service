@@ -1,0 +1,10 @@
+[Unit]
+ Description=Xurrent Alarm Service
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ ExecStart=/usr/bin/python3 /home/pi/getxurrentunassigned.py
+
+ [Install]
+ WantedBy=multi-user.target
