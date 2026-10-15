@@ -9,7 +9,7 @@ import requests
 import config
 
 authorization = 'Bearer ' + config.xurrent_token.strip()   
-xurrent_url = "https://api.xurrent.com/v1/requests/open"  
+xurrent_url = "https://api.xurrent.com/v1/requests/open?team_id=27759"  
 
 relay_gpio = 12
 noalarmsleep = 60
