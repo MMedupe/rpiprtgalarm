@@ -14,6 +14,7 @@ authorization = 'token ' + config.api_key   # ← changed to TaskCall format
 services = {
     "N-central":        "Nh2UngdOT1uzqgUKhy1l9A",
     "PLUS":             "0j-Zq-GNQ8u74FcA0kdaLg",
+    "InPersonPayments": "-PjaHQzYRM-7YZkV5yVhSA",
 }
 
 relay_gpio = 12
